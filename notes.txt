@@ -1,0 +1,77 @@
+Django  
+* django-admin startproject pyshop .
+
+commands:
+1. start server
+python3 manage.py runserver
+
+2. new app
+python3 manage.py startapp products
+
+Migrations commands
+1. python3 manage.py makemigrations
+2. python3 manage.py migrate
+3.
+
+
+steps to start
+
+1. start with the view function in our app (products here)
+2. the name of the view function is kept as index by convention
+3. we have to then create urls.py in the products app.
+4. then in the urls of the app give path by importing django.urls
+5. we do this by creating a variable urlpatterns
+6. urlpatterns = [path('', views.index)]
+7. here we will also have to import the view where we just wrote our function
+8. view is imported using: from . import views
+9. then in the main app we need to add path in the urls file
+10. here we import path and include from django.urls
+11. give path like this : path("products/", include('products.urls'))
+
+
+steps to create a model and migrate
+
+1. Create a model in the models.py of the products
+2. then in the settings file of the main app, in the installed apps array, add the products model as well
+3. path to add: "products.apps.ProductsConfig"
+4. This last part can be obtained from app.py file in products
+5. call migrations using : python3 manage.py makemigrations
+6. This will change the db.sqlite3 file with the project
+7. drag and drop it to something like Db browser for SQLite, we can see the tables formed
+
+
+Super User
+
+Python provides an admin dashboard to use. we can use it by the following methods
+
+1. create a super user by :   python3 manage.py createsuperuser
+* ￼
+2. we can add our products here by going to the admin.py of our products app and adding a line of code
+* from .models import Product
+* admin.site.register(Product) 
+3. we can add our products there
+
+Adding Template
+
+1. we have to create a template folder and add index.html for template
+2. in the views.py we need to use Product.objects.all() to get all the values from the table
+3. Product.objects.get() —> to get individual results
+4. Product.objects.filter()  —> to filter
+5. Product.objects.save() —> to save
+
+In the Index file, we use similar to Angular, the code is given below  <h1>Products</h1>
+<ul>
+    {% for product in products %}
+        <li>{{product.name}}</li>
+    {% endfor %}
+</ul>
+
+
+And this is how its rendered
+
+def index(request):
+    products = Product.objects.all()
+    return render(request, 'index.html',
+                  {'products': products})
+
+
