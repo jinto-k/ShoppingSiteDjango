@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Offers</h1>
+
+<ul class="list-group">
+    {% for offer in offers %}
+  <li class="list-group-item">
+      <a href="#">{{offer.description}}</a>
+  </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
